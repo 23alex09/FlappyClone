@@ -5,6 +5,7 @@ public class Obstacle : MonoBehaviour
 {
     private Transform destroyPosition;
     private Rigidbody2D obstacleRigidbody;
+    private float linearVelocityX = -3f;
 
     private void Awake()
     {
@@ -15,6 +16,7 @@ public class Obstacle : MonoBehaviour
     {
         Bird.Instance.OnHitObstacle += Bird_OnHitObstacle;
         destroyPosition = DestroyPosition.Instance.transform;
+        SetMovementVelocityX();
     }
 
     private void Update()
@@ -23,15 +25,16 @@ public class Obstacle : MonoBehaviour
         {
             Debug.Log("Destroy");
             Destroy(gameObject);
+            Bird.Instance.OnHitObstacle -= Bird_OnHitObstacle;
         }
     }
 
     private void Bird_OnHitObstacle(object sender, System.EventArgs e)
     {
-        SetMovementVelocityX(0f);
+        obstacleRigidbody.linearVelocityX = 0f;
     }
 
-    public void SetMovementVelocityX(float linearVelocityX)
+    public void SetMovementVelocityX()
     {
         obstacleRigidbody.linearVelocityX = linearVelocityX;
     }

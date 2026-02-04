@@ -24,11 +24,10 @@ public class ObstacleSpawner : MonoBehaviour
 
     private void SpawnObstacle()
     {
-        float linearVelocityX = -3f;
         Obstacle spawnedObstacle = Instantiate(obstacle,
                                    new Vector3(transform.position.x, Random.Range(-1.5f, 1.5f), transform.position.z),
                                    Quaternion.identity);
-        spawnedObstacle.SetMovementVelocityX(linearVelocityX);
+        spawnedObstacle.SetMovementVelocityX();
 
     }
 

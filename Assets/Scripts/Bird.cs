@@ -7,6 +7,7 @@ public class Bird : MonoBehaviour
     public static Bird Instance { get; private set; }
 
     public event EventHandler OnHitObstacle;
+    public event EventHandler OnHitSafeZone;
 
     private Rigidbody2D birdRigidbody;
 
@@ -28,12 +29,11 @@ public class Bird : MonoBehaviour
     {
         if (collision.gameObject.GetComponentInChildren<SafeZone>())
         {
-            Debug.Log("+1");
+            OnHitSafeZone?.Invoke(this, EventArgs.Empty);
             return;
         }
         if (collision.gameObject.GetComponentInChildren<Pipe>())
         {
-            Debug.Log("Muelto");
             OnHitObstacle?.Invoke(this, EventArgs.Empty);
             enabled = false;
             return;
