@@ -8,6 +8,7 @@ public class Bird : MonoBehaviour
 
     public event EventHandler OnHitObstacle;
     public event EventHandler OnHitSafeZone;
+    public event EventHandler OnJump;
 
     private Rigidbody2D birdRigidbody;
 
@@ -22,6 +23,7 @@ public class Bird : MonoBehaviour
         if (GameInput.Instance.IsJumpActionPressedThisFrame())
         {
             birdRigidbody.linearVelocityY = 10f;
+            OnJump?.Invoke(this, EventArgs.Empty);
         }
     }
 
