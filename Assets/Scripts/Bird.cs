@@ -19,7 +19,7 @@ public class Bird : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (GameInput.Instance.IsJumpActionPressedThisFrame())
         {
             birdRigidbody.linearVelocityY = 10f;
         }
