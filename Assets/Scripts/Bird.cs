@@ -14,8 +14,27 @@ public class Bird : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-        birdRigidbody = GetComponent<Rigidbody2D>();
+        // If no instance exists, become the instance.
+        if (Instance == null)
+        {
+            Instance = this;
+            // If you want the Bird to persist across scenes, uncomment:
+            // DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
+        {
+            // Another instance already exists — avoid duplicate singletons.
+            Debug.LogWarning($"Duplicate {nameof(Bird)} detected on '{gameObject.name}'. Destroying duplicate.");
+            Destroy(gameObject);
+            return;
+        }
+    }
+
+    void OnDestroy()
+    {
+        // Clear the static reference when the instance is destroyed so it can be recreated later.
+        if (Instance == this)
+            Instance = null;
     }
 
     private void Update()
